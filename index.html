@@ -116,10 +116,10 @@ var editorASTDiff = ace.edit("editorASTDiff");
   //   });
 
   function populateAccordion(jsonArray){
-    console.log(jsonArray);
-    console.log(jsonArray[0]);
+    //console.log(jsonArray);
+    //console.log(jsonArray[0]);
     for (i = 0; i < jsonArray.length; i++) { 
-      console.log(jsonArray[i]);
+      //console.log(jsonArray[i]);
       var currDoc = jsonArray[i];
       $( "<h3>"+currDoc[0].fileName+"</h3>" ).appendTo( "#accordion" );
       var innerDiv = $("<div />");
@@ -131,7 +131,16 @@ var editorASTDiff = ace.edit("editorASTDiff");
           var color = currDoc[j].CurrPhase.CycleType;
           var currPhaseDiv = $( "<div class='"+color+"''>Phase " +j+"</div>" );
           for (k = 1; k < currDoc[j].ChangedFiles.changedFiles.length; k++) { 
-          $( "<div>"+decodeURIComponent(currDoc[j].ChangedFiles.changedFiles[k].finalFilename)+ "</div>" ).appendTo(currPhaseDiv);
+            var status = "Update";
+            if(currDoc[j].ChangedFiles.changedFiles[k].initialFilename == undefined)
+              {status = "New";}
+            $( "<div id='fileRow'> ["+status+"]"+ decodeURIComponent(currDoc[j].ChangedFiles.changedFiles[k].finalFilename)+ "</div>" ).click({i:i,j: j, k:k},
+              function(event)
+              {
+               // console.log(event.data.j + " " + event.data.k);
+                displayPhase(event.data.i,event.data.j,event.data.k);
+              }
+              ).appendTo(currPhaseDiv);
         }
           currPhaseDiv.appendTo( innerDiv );
       }
@@ -162,16 +171,22 @@ var editorASTDiff = ace.edit("editorASTDiff");
     //});
   }
 
-  function displayPhase(phaseToDisplay){
-   console.log(phaseToDisplay);
-   console.log(phaseToDisplay.ChangedFiles.changedFiles[1]);
-   var changedfileObj = phaseToDisplay.ChangedFiles.changedFiles[1];
+  function displayPhase(document,phase,changedFile){
+  // console.log(document);
+  //   console.log(phase);
+  // console.log(changedFile);
+  // console.log(jsonArray[document][phase].ChangedFiles.changedFiles[changedFile]);
+
+  //  console.log(phaseToDisplay);
+  //  console.log(phaseToDisplay.ChangedFiles.changedFiles[1]);
+  //  var changedfileObj = phaseToDisplay.ChangedFiles.changedFiles[1];
+  var changedfileObj = jsonArray[document][phase].ChangedFiles.changedFiles[changedFile];
    editorBefore.getSession().setValue(decodeURIComponent(changedfileObj.initialFileContents));
    editorAfter.getSession().setValue(decodeURIComponent(changedfileObj.finalFileContents));
   // editorCodeDiff.getSession().setValue("DIFF GOES HERE");
-   console.log(changedfileObj.ASTDiffs);
+   //console.log(changedfileObj.ASTDiffs);
    editorASTDiff.getSession().setValue(JSON.stringify(changedfileObj.ASTDiffs, null, '\t'));
-    
+    changed();
   }
 
 var result;
