@@ -132,7 +132,7 @@ var editorASTDiff = ace.edit("editorASTDiff");
           //get length currDoc[j].ChangedFiles.changedFiles.length
           var color = currDoc[j].CurrPhase.CycleType;
           var currPhaseDiv = $( "<div class='"+color+"''>Phase " +j+"</div>" );
-          for (k = 1; k < currDoc[j].ChangedFiles.changedFiles.length; k++) { 
+          for (k = 0; k < currDoc[j].ChangedFiles.changedFiles.length; k++) { 
             var status = "Update";
             if(currDoc[j].ChangedFiles.changedFiles[k].initialFileName == undefined)
               {status = "New";}
