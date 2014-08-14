@@ -126,7 +126,14 @@ var editorASTDiff = ace.edit("editorASTDiff");
       for (j = 1; j < currDoc.length; j++) { 
           //currDoc
           //innerDiv.append()
-          $( "<p>"+currDoc[j].CurrPhase+ " " +j+"</p>" ).appendTo( innerDiv );
+          //get color currDoc[j].CurrPhase.CycleType
+          //get length currDoc[j].ChangedFiles.changedFiles.length
+          var color = currDoc[j].CurrPhase.CycleType;
+          var currPhaseDiv = $( "<div class='"+color+"''>Phase " +j+"</div>" );
+          for (k = 1; k < currDoc[j].ChangedFiles.changedFiles.length; k++) { 
+          $( "<div>"+decodeURIComponent(currDoc[j].ChangedFiles.changedFiles[k].finalFilename)+ "</div>" ).appendTo(currPhaseDiv);
+        }
+          currPhaseDiv.appendTo( innerDiv );
       }
       $( innerDiv ).appendTo( "#accordion" );
     }

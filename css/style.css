@@ -114,7 +114,24 @@ td {
 
 
 
+.red{
+background-color:#af292e;
+border: 2px solid;
+    border-radius: 10px;
 
+}
+.green{
+background-color:#4e7300;
+border: 2px solid;
+    border-radius: 10px;
+    
+}
+.blue{
+background-color:#385e86;
+border: 2px solid;
+    border-radius: 10px;
+    
+}
 
 
 
