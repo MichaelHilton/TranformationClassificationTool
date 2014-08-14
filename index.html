@@ -20,7 +20,6 @@
   });
   </script>
   
-<h1>LIST OF ALL PHASES</h1>
 </head>
 
 <body>
@@ -183,6 +182,7 @@ var editorASTDiff = ace.edit("editorASTDiff");
   //  console.log(phaseToDisplay.ChangedFiles.changedFiles[1]);
   //  var changedfileObj = phaseToDisplay.ChangedFiles.changedFiles[1];
   //console.log(jsonArray[document][phase].CurrPhase.CycleType);
+  $("#kataName").text(jsonArray[document][0].fileName);
   var currPhaseColor = jsonArray[document][phase].CurrPhase.CycleType;
   $("#phaseUnit").removeClass().addClass(currPhaseColor+"Phase");
   var changedfileObj = jsonArray[document][phase].ChangedFiles.changedFiles[changedFile];
