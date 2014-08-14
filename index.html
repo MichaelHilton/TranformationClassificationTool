@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
     $( "#accordion" ).accordion();
@@ -28,7 +27,7 @@
  
 
 <div id="phaseDisplayArea">
-  <div id="phaseUnit">
+  <div id="phaseUnit" class="redPhase">
     <div id="kataName">GameOfLife</div>
     <div id="codeComparisonArea">
       <div id="previousCode" class="ACEPanel">
@@ -180,6 +179,9 @@ var editorASTDiff = ace.edit("editorASTDiff");
   //  console.log(phaseToDisplay);
   //  console.log(phaseToDisplay.ChangedFiles.changedFiles[1]);
   //  var changedfileObj = phaseToDisplay.ChangedFiles.changedFiles[1];
+  //console.log(jsonArray[document][phase].CurrPhase.CycleType);
+  var currPhaseColor = jsonArray[document][phase].CurrPhase.CycleType;
+  $("#phaseUnit").removeClass().addClass(currPhaseColor+"Phase");
   var changedfileObj = jsonArray[document][phase].ChangedFiles.changedFiles[changedFile];
    editorBefore.getSession().setValue(decodeURIComponent(changedfileObj.initialFileContents));
    editorAfter.getSession().setValue(decodeURIComponent(changedfileObj.finalFileContents));
